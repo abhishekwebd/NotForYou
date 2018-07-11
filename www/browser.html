@@ -76,7 +76,7 @@
 <script>
     var app = angular.module('myApp', []);
     app.controller('BrowserCtrl', function ($scope, $http) {
-
+  $scope.txtpasslength = 10;
 $scope.open = function(){
 
 sessionStorage.setItem("url",$scope.searchtext);

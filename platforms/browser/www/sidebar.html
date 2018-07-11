@@ -1,3 +1,4 @@
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div id="dismiss">
@@ -35,21 +36,26 @@
              <!-- The Modal -->
   <div class="modal fade" id="myModal" style="top:20%;">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <div class="modal-content text-center">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="color: black;">Generate Password</h4>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-          Modal body..
+     <span class="alert alert-info" id="generator"><i class="fa fa-refresh"></i></span>
+              <label style="background: #dcd9d9 ;color: black;" class="alert" id="Password"></label>
+     <span class="alert alert-info copy"><i class="fa fa-copy"></i></span>
+     <br>
+     <input type="range" name="" ng-model="txtpasslength" value="8" id="txtpasslength" class="form-control">
+     <label style="color: black;">{{txtpasslength}}</label>
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
+           <label style="color: gray;" id="lblalert" class="pull-left" ></label>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
         
@@ -57,12 +63,22 @@
     </div>
   </div>
 
+  <script src="js/clipboard.js"></script>
                <script type="text/javascript">
              $(document).ready(function () {
+               
+              
+
                  $("#sidebar").niceScroll({
                      cursorcolor: '#53619d',
                      cursorwidth: 4,
                      cursorborder: 'none'
+                 });
+                $('#generator').on('click', function () {
+                   var length = $("#txtpasslength").val();
+                  //   var randomstring = Math.random().toString(36).slice(- length);
+                  var randomstring = makeid(length);
+                $("#Password").text(randomstring);
                  });
 
                  $('#dismiss, .overlay').on('click', function () {
@@ -83,8 +99,40 @@
                  });
 
               
+             var randomstring = makeid(8);
+                $("#Password").text(randomstring);
 
              });
 
     
+            function makeid(length) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!";
+
+  for (var i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
          </script>
+
+ <script>
+    var clipboard = new ClipboardJS('.copy', {
+        text: function() {
+
+            var data =  $("#Password").text();
+            $("#lblalert").text("Copied :"+data);
+            return data;
+
+        }
+    });
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    </script>
+
