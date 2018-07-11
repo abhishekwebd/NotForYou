@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Home</title>
+        <title>Browser</title>
 <link rel="stylesheet" href="css/loader.css">
          <!-- Bootstrap CSS CDN -->
             <link rel="stylesheet" href="css/bootstrap.css">
@@ -18,7 +18,7 @@
 
    <div id="loading" class="loader">   
     </div>
-     <div ng-app="myApp"  ng-controller="HomeCtrl">
+     <div ng-app="myApp"  ng-controller="BrowserCtrl">
         <div class="wrapper">
           
                 <div ng-include="'sidebar.html'"></div>
@@ -27,13 +27,14 @@
             <div id="content">
 
                 <nav class="navbar navbar-default">
-                    <div class="container-fluid" style=" text-align: left;">
+                    <div class="container-fluid">
 
                         <div class="navbar-header">
                             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+     
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,19 +47,42 @@
                         </div>
                     </div>
                 </nav>
+<!-- Content Goes Here -->
 
-                
+<div class="form">
+    <div class="form-group">
+      <input type="text" ng-model="txtregion" class="form-control" placeholder="Region" name="">
+    </div>
+    <div class="form-group">
+        <input type="text" name="" ng-model="txtgender" placeholder="Gender" class="form-control">
+    </div>
+     <div class="form-group">
+        <input type="number" name="" ng-model="txtamount" placeholder="Amount" class="form-control">
+    </div>
+  
+     <div class="form-group">
+        <input type="button" class="btn btn-primary" value="Fetch Data" ng-click="Fetch()">
+        <input type="button" class="btn btn-primary" value="Fetch Detailed" ng-click="FetchDetailed()">
+        <span>{{alert}}</span>
+    </div>
+</div>
+             
 
+              <table class="table" ng-show="data">
+                  <tr>
+                     <th>Name</th>
+                     <th>Surname</th> 
+                     <th>Gender</th>
+                     <th>Region</th>
+                  </tr>
+               <tr ng-repeat="values in data">
+      <td>{{values.name}}</td>
+      <td>{{values.surname}}</td>
+      <td>{{values.gender}}</td>
+      <td>{{values.region}}</td>
+   </tr>
+              </table>
 
-
-
-
-
-
-
-
-
-<div ng-include="'popup/index.html'"></div>
 
             </div>
         </div>
@@ -73,17 +97,41 @@
          <!-- Bootstrap Js CDN -->
           <script src="js/angular.min.js"></script>
          <script src="js/bootstrap.min.js"></script>
+         <script src="js/index.js"></script>
+
          <!-- jQuery Nicescroll CDN -->
          <script src="js/jquery.nicescroll.min.js"></script>
 <script type="text/javascript" src="js/sc_index.js"></script>
-   <script src="js/index.js"></script>
+
 
 <script>
     var app = angular.module('myApp', []);
-    app.controller('HomeCtrl', function ($scope, $http) {
+    app.controller('BrowserCtrl', function ($scope, $http) {
+        
 
+//     $scope.regions = ["India", "Germany", "United States"];
+// $scope.txtregion = $scope.regions[0].value;
+    $scope.Fetch = function(){
+        $scope.alert = "Wait ...";
+        var url = "https://uinames.com/api/?";
+        if($scope.txtregion){ url += "region="+$scope.txtregion;  }
+  if($scope.txtgender){ url += "&gender="+$scope.txtgender;  }
+   if($scope.txtamount){ url += "&amount="+$scope.txtamount;  }
+     
+        $http.get(url).then(function(response) {
+        $scope.data = response.data;
+         $scope.alert = "";
+        });
+       
+    }
 
-    
+    $scope.FetchDetailed = function(){
+             if($scope.txtregion){ sessionStorage.setItem("region",$scope.txtregion);  }
+  if($scope.txtgender){ sessionStorage.setItem("gender",$scope.txtgender);  }
+   if($scope.txtamount){ sessionStorage.setItem("amount",$scope.txtamount);  }
+
+   window.location.href = "namesuggestdetailed.html";
+    }
     
 });
 
