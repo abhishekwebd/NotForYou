@@ -5,7 +5,9 @@
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 |<link rel="stylesheet" type="text/css" href="css/index.css">
+|<link rel="stylesheet" type="text/css" href="css/inappbrowser.css">
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/inappbrowser.js"></script>
 <style type="text/css">
     div{
         border-color: rgba(9, 154, 239, 0.247059) !important;
@@ -25,15 +27,22 @@
     var iabRef = null;
 
     function iabLoadStart(event) {
-        alert(event.type + ' - ' + event.url);
+       // alert(event.type + ' - ' + event.url);
+        if(event.url == "http://fastpage.co.nf/about.php"){
+             iabRef.removeEventListener('loadstart', iabLoadStart);
+         iabRef.removeEventListener('loadstop', iabLoadStop);
+         iabRef.removeEventListener('loaderror', iabLoadError);
+         iabRef.removeEventListener('exit', iabClose);
+         window.location.href = "browser.html";
+        }
     }
 
     function iabLoadStop(event) {
-        alert(event.type + ' - ' + event.url);
+        //alert(event.type + ' - ' + event.url);
     }
 
     function iabLoadError(event) {
-        alert(event.type + ' - ' + event.message);
+       // alert(event.type + ' - ' + event.message);
     }
 
     function iabClose(event) {
