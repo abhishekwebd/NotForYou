@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Home</title>
+        <title>Browser</title>
 <link rel="stylesheet" href="css/loader.css">
          <!-- Bootstrap CSS CDN -->
             <link rel="stylesheet" href="css/bootstrap.css">
@@ -18,7 +18,7 @@
 
    <div id="loading" class="loader">   
     </div>
-     <div ng-app="myApp"  ng-controller="HomeCtrl">
+     <div ng-app="myApp"  ng-controller="BrowserCtrl">
         <div class="wrapper">
           
                 <div ng-include="'sidebar.html'"></div>
@@ -34,6 +34,10 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+                            <div class="input-group">
+    <input id="searchtext" type="text" class="form-control" ng-model="searchtext" name="searchtext" placeholder="searchtext">
+    <span class="input-group-addon" style="background-color: #5bc0de;color: white;" ng-click="open()"><i class="glyphicon glyphicon-search "></i></span>
+  </div>
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,25 +50,9 @@
                         </div>
                     </div>
                 </nav>
+<!-- Content Goes Here -->
 
-                <h2>Collapsible Sidebar Using Bootstrap 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h3>Lorem Ipsum Dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              
             </div>
         </div>
 
@@ -78,6 +66,8 @@
          <!-- Bootstrap Js CDN -->
           <script src="js/angular.min.js"></script>
          <script src="js/bootstrap.min.js"></script>
+         <script src="js/index.js"></script>
+
          <!-- jQuery Nicescroll CDN -->
          <script src="js/jquery.nicescroll.min.js"></script>
 <script type="text/javascript" src="js/sc_index.js"></script>
@@ -85,8 +75,15 @@
 
 <script>
     var app = angular.module('myApp', []);
-    app.controller('HomeCtrl', function ($scope, $http) {
+    app.controller('BrowserCtrl', function ($scope, $http) {
 
+$scope.open = function(){
+
+sessionStorage.setItem("url",$scope.searchtext);
+window.location.href = "browser2.html";
+
+
+}
 
     
     
