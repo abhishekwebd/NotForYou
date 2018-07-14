@@ -49,7 +49,7 @@
 
                 
 
-
+<span style="color: white;">Mode : {{mode}}</span><br>
 <div class="form">
     <div class="form-group">
         <input type="text" placeholder="Sitename" name="" ng-model="sitename">
@@ -104,8 +104,10 @@
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
     //alert(sessionStorage.getItem("siteidtoedit"));
+    $scope.mode = "ADD";
             if(sessionStorage.getItem("siteidtoedit") != undefined)
             {
+                $scope.mode ="UPDATE";
               var q = "select * from tbllogincred where id= "+sessionStorage.getItem("siteidtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
          $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
@@ -122,17 +124,18 @@
                
                if(sessionStorage.getItem("siteidtoedit") != undefined)
                {
-                q = "update tbllogincred set Sitename = '"+$scope.sitename+"',Loginid = '"+$scope.loginid+"',passcode = '"+$scope.password+"',naration = '"+$scope.naration+"' where Id ="+sessionStorage.getItem("siteidtoedit");
+                q = "update tbllogincred set Sitename = '"+escape($scope.sitename)+"',Loginid = '"+escape($scope.loginid)+"',passcode = '"+escape($scope.password)+"',naration = '"+escape($scope.naration)+"' where Id ="+sessionStorage.getItem("siteidtoedit");
                
                }else{
-                q = "insert into tbllogincred (id,Sitename,Loginid,passcode,naration) values(null,'"+$scope.sitename+"','"+$scope.loginid+"','"+$scope.password+"','"+$scope.naration+"')";
+                q = "insert into tbllogincred (id,Sitename,Loginid,passcode,naration) values(null,'"+escape($scope.sitename)+"','"+escape($scope.loginid)+"','"+escape($scope.password)+"','"+escape($scope.naration)+"')";
                                }
-               // alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
+              // alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
              $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
+                sessionStorage.removeItem("siteidtoedit");
               window.location.href = "ViewLoginCred.html";
                 }
                 else

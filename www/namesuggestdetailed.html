@@ -25,7 +25,7 @@
                 <div ng-include="'sidebar.html'"></div>
 
             <!-- Page Content Holder -->
-            <div id="content">
+            <div id="content" style="background-color: #596778;">
 
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
@@ -53,10 +53,10 @@
 <div class="form">
      <div class="form-group">
         <input type="button" class="btn btn-block btn-primary" value="Refresh" ng-click="Fetch()">
-        <span>{{alert}}</span>
+        <span style="color: white;">{{alert}}</span>
     </div>
 </div>
-             <div id="detaileddata" style="overflow: scroll;">
+             <div id="detaileddata" style="overflow: scroll;color: white;">
                  <table ng-repeat="val in data" class="table table-responsive">
     <tr>
         <td colspan="3" class="alert alert-info">{{val.name}} &nbsp; {{val.surname}}</td>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Server Credentials</title>
+        <title>Login Credentials</title>
 <link rel="stylesheet" href="css/loader.css">
          <!-- Bootstrap CSS CDN -->
             <link rel="stylesheet" href="css/bootstrap.css">
@@ -49,32 +49,22 @@
 
                 
 
-<span style="color: white;">Mode : {{mode}}</span><br>
-<div class="form">
-    
-    <div class="form-group">
-        <input type="text" placeholder="Server" name="" ng-model="Server">
-    </div>
-    <div class="form-group">
-        <input type="text" placeholder="Database" name="" ng-model="Database">
-    </div>
-    <div class="form-group">
-        <input type="text" placeholder="Username" name="" ng-model="Username">
-    </div>
-    <div class="form-group">
-        <input type="text" placeholder="Password" name="" ng-model="Password">
-    </div>
-    <div class="form-group">
-        <button class="btn btn-info btn-block" ng-click="ADD()">Save</button>
-    </div>
-        <div class="form-group">
-        <button class="btn btn-danger btn-block" ng-click="clear()">Clear</button>
-    </div>
-    <div class="form-group">
-      <label style="color: white;"> {{error}} </label>
-    </div>
+<div style="overflow: scroll;">
+<table class="table" style="color: white;">
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr  ng-repeat="x in details">
+        <td>{{x.Title}}</td>
+        <td> <a ng-click="viewinfo(x.id)"> <i class="fa fa-eye"></i> </a></td>
+        <td> <a ng-click="editinfo(x.id)"> <i class="fa fa-pencil-square-o"></i> </a></td>
+        <td> <a ng-click="delete(x.id)"> <i class="fa fa-trash"></i> </a></td>
+    </tr>
+</table>
 </div>
-
 
 
 
@@ -104,53 +94,39 @@
 <script>
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
-    //alert(sessionStorage.getItem("siteidtoedit"));
-        $scope.mode = "ADD";
-            if(sessionStorage.getItem("serveridtoedit") != undefined)
-            {
-                  $scope.mode ="UPDATE";
-              var q = "select * from tblservercred where id= "+sessionStorage.getItem("serveridtoedit");
-              //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
-            {
-            $scope.Server =  response.data.result[0].servername;
-            $scope.Database =  response.data.result[0].databasename;
-            $scope.Username =  response.data.result[0].username;
-            $scope.Password =  response.data.result[0].passtext;
-        });
-            }
 
-          $scope.ADD = function(){
-                if($scope.Server != undefined && $scope.Username != undefined && $scope.Database != undefined && $scope.Password != undefined ){
-               
-               if(sessionStorage.getItem("serveridtoedit") != undefined)
-               {
-                q = "update tblservercred set servername = '"+escape($scope.Server)+"',databasename = '"+escape($scope.Database)+"',username = '"+escape($scope.Username)+"',passtext = '"+escape($scope.Password)+"' where Id ="+sessionStorage.getItem("serveridtoedit");
-               
-               }else{
-                q = "insert into tblservercred (id,servername,databasename,username,passtext) values(null,'"+escape($scope.Server)+"','"+escape($scope.Database)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"')";
-                               }
-              //  alert(q);
-             $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
+       var q = "select id,Title from tblnotes order by id desc";
+      
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+            {$scope.details = response.data.result; });
+        
+        $scope.editinfo = function(id){
+          //  alert(id);
+            sessionStorage.setItem("noteidtoedit",id);
+            window.location.href="addNotes.html";
+        }
+
+          $scope.viewinfo = function(id){
+          //  alert(id);
+            sessionStorage.setItem("contentid",id);
+            window.location.href="ViewContent.html";
+        }
+
+
+         $scope.delete = function(id){
+          //  alert(id);
+          var q = "delete from tblnotes where id ="+id;
+          
+            $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
-                sessionStorage.removeItem("serveridtoedit");
-              window.location.href = "ViewServerCred.html";
-                }
-                else
-                {
-                        $scope.error = "All Fields are Mendatory !";
-                }
-            }
-
-              $scope.clear = function(){
-             
-                sessionStorage.removeItem("serveridtoedit");
-                window.location.href = "addServerCred.html";
-              }
-
+                  var q = "select * from tblnotes order by id desc";
+      
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+            {$scope.details = response.data.result; });
+        }
 
 });
 

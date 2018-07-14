@@ -13,16 +13,32 @@
                 <ul class="list-unstyled components" style=" text-align: left;" >
                     <li> <a href="home.html"> <i class="fa fa-home"></i> Home</a></li>
                     <li>
-                        <a href="ViewLoginCred.html"> <i class="fa fa-desktop"></i> Sites</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-desktop"></i> Sites</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li><a href="addLoginCred.html">ADD</a></li>
+                            <li><a href="ViewLoginCred.html">VIEW</a></li>
+                        </ul>
                     </li>
                       <li>
-                        <a href="ViewServerCred.html"> <i class="fa fa-database"></i> Server</a>
+                        <a href="#serverSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-database"></i> Server</a>
+                         <ul class="collapse list-unstyled" id="serverSubmenu">
+                            <li><a href="addServerCred.html">ADD</a></li>
+                            <li><a href="ViewServerCred.html">VIEW</a></li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="ViewFtpDetail.html">  <i class="fa fa-upload"></i> FTP Details</a>
+                        <a href="#ftpSubmenu" data-toggle="collapse" aria-expanded="false">  <i class="fa fa-upload"></i> FTP Details</a>
+                         <ul class="collapse list-unstyled" id="ftpSubmenu">
+                            <li><a href="addFtpDetails.html">ADD</a></li>
+                            <li><a href="ViewFtpDetail.html">VIEW</a></li>
+                        </ul>
                     </li>
                       <li>
-                        <a href="#"> <i class="glyphicon glyphicon-link"></i> Links</a>
+                        <a href="#notesSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-file-text "></i> Notes</a>
+                         <ul class="collapse list-unstyled" id="notesSubmenu">
+                            <li><a href="addNotes.html">ADD</a></li>
+                            <li><a href="ViewNotes.html">VIEW</a></li>
+                        </ul>
                     </li>
                      <li>
                         <a href="browser.html"> <i class="glyphicon glyphicon-globe"></i> Browser</a>

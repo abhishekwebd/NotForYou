@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Server Credentials</title>
+        <title>Login Credentials</title>
 <link rel="stylesheet" href="css/loader.css">
          <!-- Bootstrap CSS CDN -->
             <link rel="stylesheet" href="css/bootstrap.css">
@@ -51,18 +51,12 @@
 
 <span style="color: white;">Mode : {{mode}}</span><br>
 <div class="form">
-    
     <div class="form-group">
-        <input type="text" placeholder="Server" name="" ng-model="Server">
+        <input type="text" placeholder="Title" name="" ng-model="title">
     </div>
+
     <div class="form-group">
-        <input type="text" placeholder="Database" name="" ng-model="Database">
-    </div>
-    <div class="form-group">
-        <input type="text" placeholder="Username" name="" ng-model="Username">
-    </div>
-    <div class="form-group">
-        <input type="text" placeholder="Password" name="" ng-model="Password">
+        <textarea placeholder="Content" ng-model="content" rows="5" ></textarea>
     </div>
     <div class="form-group">
         <button class="btn btn-info btn-block" ng-click="ADD()">Save</button>
@@ -70,7 +64,7 @@
         <div class="form-group">
         <button class="btn btn-danger btn-block" ng-click="clear()">Clear</button>
     </div>
-    <div class="form-group">
+      <div class="form-group">
       <label style="color: white;"> {{error}} </label>
     </div>
 </div>
@@ -104,40 +98,39 @@
 <script>
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
-    //alert(sessionStorage.getItem("siteidtoedit"));
-        $scope.mode = "ADD";
-            if(sessionStorage.getItem("serveridtoedit") != undefined)
+    //alert(sessionStorage.getItem("noteidtoedit"));
+    $scope.mode = "ADD";
+            if(sessionStorage.getItem("noteidtoedit") != undefined)
             {
-                  $scope.mode ="UPDATE";
-              var q = "select * from tblservercred where id= "+sessionStorage.getItem("serveridtoedit");
+                $scope.mode ="UPDATE";
+              var q = "select * from tblnotes where id= "+sessionStorage.getItem("noteidtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
          $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {
-            $scope.Server =  response.data.result[0].servername;
-            $scope.Database =  response.data.result[0].databasename;
-            $scope.Username =  response.data.result[0].username;
-            $scope.Password =  response.data.result[0].passtext;
+            $scope.title =  response.data.result[0].Title;
+            $scope.content =  response.data.result[0].Content;
         });
             }
 
           $scope.ADD = function(){
-                if($scope.Server != undefined && $scope.Username != undefined && $scope.Database != undefined && $scope.Password != undefined ){
+                if($scope.title != undefined && $scope.content != undefined ){
                
-               if(sessionStorage.getItem("serveridtoedit") != undefined)
+               if(sessionStorage.getItem("noteidtoedit") != undefined)
                {
-                q = "update tblservercred set servername = '"+escape($scope.Server)+"',databasename = '"+escape($scope.Database)+"',username = '"+escape($scope.Username)+"',passtext = '"+escape($scope.Password)+"' where Id ="+sessionStorage.getItem("serveridtoedit");
+                q = "update tblnotes set title = '"+escape($scope.title)+"',content = '"+escape($scope.content)+"' where Id ="+sessionStorage.getItem("noteidtoedit");
                
                }else{
-                q = "insert into tblservercred (id,servername,databasename,username,passtext) values(null,'"+escape($scope.Server)+"','"+escape($scope.Database)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"')";
+                q = "insert into tblnotes (id,title,content) values(null,'"+escape($scope.title)+"','"+escape($scope.content)+"')";
                                }
-              //  alert(q);
+            //   alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
              $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
-                sessionStorage.removeItem("serveridtoedit");
-              window.location.href = "ViewServerCred.html";
+              sessionStorage.removeItem("noteidtoedit");
+              window.location.href = "ViewNotes.html";
+
                 }
                 else
                 {
@@ -147,9 +140,10 @@
 
               $scope.clear = function(){
              
-                sessionStorage.removeItem("serveridtoedit");
-                window.location.href = "addServerCred.html";
+                sessionStorage.removeItem("noteidtoedit");
+                window.location.href = "addNotes.html";
               }
+
 
 
 });
@@ -185,3 +179,5 @@
 
     </body>
 </html>
+
+

@@ -49,7 +49,7 @@
 
                 
 
-
+<span style="color: white;">Mode : {{mode}}</span><br>
 <div class="form">
     
     <div class="form-group">
@@ -102,8 +102,10 @@
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
     //alert(sessionStorage.getItem("siteidtoedit"));
+        $scope.mode = "ADD";
             if(sessionStorage.getItem("ftpidtoedit") != undefined)
             {
+                  $scope.mode ="UPDATE";
               var q = "select * from tblftpcred where id= "+sessionStorage.getItem("ftpidtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
          $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
@@ -119,10 +121,10 @@
                
                if(sessionStorage.getItem("ftpidtoedit") != undefined)
                {
-                q = "update tblftpcred set servername = '"+$scope.Server+"',username = '"+$scope.Username+"',passtext = '"+$scope.Password+"' where Id ="+sessionStorage.getItem("ftpidtoedit");
+                q = "update tblftpcred set servername = '"+escape($scope.Server)+"',username = '"+escape($scope.Username)+"',passtext = '"+escape($scope.Password)+"' where Id ="+sessionStorage.getItem("ftpidtoedit");
                
                }else{
-                q = "insert into tblftpcred (id,servername,username,passtext) values(null,'"+$scope.Server+"','"+$scope.Username+"','"+$scope.Password+"')";
+                q = "insert into tblftpcred (id,servername,username,passtext) values(null,'"+escape($scope.Server)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"')";
                                }
               //  alert(q);
              $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
@@ -130,6 +132,7 @@
                   
                   
             });
+                  sessionStorage.removeItem("ftpidtoedit");
               window.location.href = "ViewFtpDetail.html";
                 }
                 else

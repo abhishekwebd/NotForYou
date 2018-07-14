@@ -112,13 +112,17 @@
             $scope.delete = function(id){
           //  alert(id);
           var q = "delete from tblservercred where id ="+id;
-          alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
+         
             $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
-              window.location.href="ViewServerCred.html";
+
+       var q = "select * from tblservercred order by id desc";
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+            {$scope.details = response.data.result; });
+            
         }
 
 });
