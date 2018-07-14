@@ -56,12 +56,14 @@
         <th>Loginid</th>
         <th>Pass</th>
         <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr  ng-repeat="x in details">
         <td>{{x.Sitename}}</td>
         <td>{{x.Loginid}}</td>
         <td>{{x.Passcode}}</td>
         <td> <a ng-click="editinfo(x.id)"> <i class="fa fa-pencil-square-o"></i> </a></td>
+        <td> <a ng-click="delete(x.id)"> <i class="fa fa-trash"></i> </a></td>
     </tr>
 </table>
 </div>
@@ -97,13 +99,25 @@
 
        var q = "select * from tbllogincred order by id desc";
       
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {$scope.details = response.data.result; });
         
         $scope.editinfo = function(id){
           //  alert(id);
             sessionStorage.setItem("siteidtoedit",id);
             window.location.href="addLoginCred.html";
+        }
+
+         $scope.delete = function(id){
+          //  alert(id);
+          var q = "delete from tbllogincred where id ="+id;
+          alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
+            $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
+             .then(function (response) { 
+                  
+                  
+            });
+              window.location.href="ViewLoginCred.html";
         }
 
 });

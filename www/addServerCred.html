@@ -109,7 +109,7 @@
             {
               var q = "select * from tblservercred where id= "+sessionStorage.getItem("serveridtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {
             $scope.Server =  response.data.result[0].servername;
             $scope.Database =  response.data.result[0].databasename;

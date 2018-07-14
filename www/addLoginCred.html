@@ -108,7 +108,7 @@
             {
               var q = "select * from tbllogincred where id= "+sessionStorage.getItem("siteidtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {
             $scope.sitename =  response.data.result[0].Sitename;
             $scope.loginid =  response.data.result[0].Loginid;
@@ -127,7 +127,7 @@
                }else{
                 q = "insert into tbllogincred (id,Sitename,Loginid,passcode,naration) values(null,'"+$scope.sitename+"','"+$scope.loginid+"','"+$scope.password+"','"+$scope.naration+"')";
                                }
-                
+               // alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
              $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
@@ -146,6 +146,7 @@
                 sessionStorage.removeItem("siteidtoedit");
                 window.location.href = "addLoginCred.html";
               }
+
 
 
 });
@@ -181,3 +182,5 @@
 
     </body>
 </html>
+
+

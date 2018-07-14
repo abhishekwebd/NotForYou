@@ -106,7 +106,7 @@
             {
               var q = "select * from tblftpcred where id= "+sessionStorage.getItem("ftpidtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {
             $scope.Server =  response.data.result[0].servername;
             $scope.Username =  response.data.result[0].username;

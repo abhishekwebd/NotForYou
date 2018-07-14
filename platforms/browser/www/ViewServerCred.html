@@ -57,6 +57,7 @@
         <th>Username</th>
         <th>Password</th>
         <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr  ng-repeat="x in details">
         <td>{{x.servername}}</td>
@@ -64,6 +65,7 @@
         <td>{{x.username}}</td>
         <td>{{x.passtext}}</td>
         <td> <a ng-click="editinfo(x.id)"> <i class="fa fa-pencil-square-o"></i> </a></td>
+         <td> <a ng-click="delete(x.id)"> <i class="fa fa-trash"></i> </a></td>
     </tr>
 </table>
 </div>
@@ -98,13 +100,25 @@
     app.controller('HomeCtrl', function ($scope, $http) {
 
        var q = "select * from tblservercred order by id desc";
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
             {$scope.details = response.data.result; });
         
         $scope.editinfo = function(id){
           //  alert(id);
             sessionStorage.setItem("serveridtoedit",id);
             window.location.href="addServerCred.html";
+        }
+
+            $scope.delete = function(id){
+          //  alert(id);
+          var q = "delete from tblservercred where id ="+id;
+          alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
+            $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
+             .then(function (response) { 
+                  
+                  
+            });
+              window.location.href="ViewServerCred.html";
         }
 
 });
