@@ -34,6 +34,10 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+                                <a href="ViewFtpDetail.html" class="btn btn-info pull-right">
+                                <i class=" fa fa-refresh"></i>
+                                <span></span>
+                            </a>
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,22 +52,25 @@
                 </nav>
 
                 
-
+<a style="color: white;" href="addFtpDetails.html" class="pull-right"><i class="fa fa-plus"></i> Add New</a>
+<br><br>
 <div style="overflow: scroll;">
-<table class="table" style="color: white;">
+<table class="table" style="color: white;font-size: 15px;">
     <tr>
         <th>Server</th>
         <th>Username</th>
         <th>Password</th>
+        <th>LastUpdate</th>
         <th>Edit</th>
           <th>Delete</th>
     </tr>
     <tr  ng-repeat="x in details">
-        <td>{{x.servername}}</td>
-        <td>{{x.username}}</td>
-        <td>{{x.passtext}}</td>
-        <td> <a ng-click="editinfo(x.id)"> <i class="fa fa-pencil-square-o"></i> </a></td>
-          <td> <a ng-click="delete(x.id)"> <i class="fa fa-trash"></i> </a></td>
+        <td>{{x.Server}}</td>
+        <td>{{x.Username}}</td>
+        <td>{{x.Password}}</td>
+        <td>{{x.LastUpdate}}</td>
+        <td> <a ng-click="editinfo(x.Code)"> <i class="fa fa-pencil-square-o"></i> </a></td>
+          <td> <a ng-click="delete(x.Code)"> <i class="fa fa-trash"></i> </a></td>
     </tr>
 </table>
 </div>
@@ -97,8 +104,8 @@
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
 
-       var q = "select * from tblftpcred order by id desc";
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+       var q = "select * from nfu_ftpcred where IsDelete =0 and userid ="+localStorage.getItem("Code")+" order by Code desc";
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
             {$scope.details = response.data.result; });
         
         $scope.editinfo = function(id){
@@ -108,15 +115,15 @@
         }
             $scope.delete = function(id){
           //  alert(id);
-          var q = "delete from tblftpcred where id ="+id;
+          var q = "update nfu_ftpcred set IsDelete = 1 where Code ="+id;
           //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
             $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
-          var q = "select * from tblftpcred order by id desc";
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+          var q = "select * from nfu_ftpcred where IsDelete =0  and userid ="+localStorage.getItem("Code")+"  order by Code desc";
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
             {$scope.details = response.data.result; });     
         }
 

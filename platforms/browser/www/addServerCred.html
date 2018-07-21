@@ -34,6 +34,10 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+                                <a href="addServerCred.html" class="btn btn-info pull-right" ng-click="refresh()">
+                                <i class=" fa fa-refresh"></i>
+                                <span></span>
+                            </a>
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -49,11 +53,13 @@
 
                 
 
-<span style="color: white;">Mode : {{mode}}</span><br>
+<span style="color: white;">Mode : {{mode}}</span>
+<a style="color: white;" href="ViewServerCred.html" class="pull-right"><i class="fa fa-eye"></i> View Data</a>
+<br><br>
 <div class="form">
     
     <div class="form-group">
-        <input type="text" placeholder="Server" name="" ng-model="Server">
+        <input type="text" placeholder="Server" name="" autofocus ng-model="Server">
     </div>
     <div class="form-group">
         <input type="text" placeholder="Database" name="" ng-model="Database">
@@ -109,14 +115,14 @@
             if(sessionStorage.getItem("serveridtoedit") != undefined)
             {
                   $scope.mode ="UPDATE";
-              var q = "select * from tblservercred where id= "+sessionStorage.getItem("serveridtoedit");
+              var q = "select * from nfu_servercred where Code= "+sessionStorage.getItem("serveridtoedit");
               //alert(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q);
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
             {
-            $scope.Server =  response.data.result[0].servername;
-            $scope.Database =  response.data.result[0].databasename;
-            $scope.Username =  response.data.result[0].username;
-            $scope.Password =  response.data.result[0].passtext;
+            $scope.Server =  response.data.result[0].Server;
+            $scope.Database =  response.data.result[0].Dbname;
+            $scope.Username =  response.data.result[0].Username;
+            $scope.Password =  response.data.result[0].Password;
         });
             }
 
@@ -125,19 +131,23 @@
                
                if(sessionStorage.getItem("serveridtoedit") != undefined)
                {
-                q = "update tblservercred set servername = '"+escape($scope.Server)+"',databasename = '"+escape($scope.Database)+"',username = '"+escape($scope.Username)+"',passtext = '"+escape($scope.Password)+"' where Id ="+sessionStorage.getItem("serveridtoedit");
-               
+
+            q = "exec sp_nfuservercred "+sessionStorage.getItem("serveridtoedit")+",'"+escape($scope.Server)+"','"+escape($scope.Database)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"','U',"+localStorage.getItem("Code");
+
                }else{
-                q = "insert into tblservercred (id,servername,databasename,username,passtext) values(null,'"+escape($scope.Server)+"','"+escape($scope.Database)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"')";
+                q = "exec sp_nfuservercred 0,'"+escape($scope.Server)+"','"+escape($scope.Database)+"','"+escape($scope.Username)+"','"+escape($scope.Password)+"','I',"+localStorage.getItem("Code");
                                }
               //  alert(q);
              $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
-                  
+                  $scope.error = response.data.result[0].Msg;
+                if(response.data.result[0].Code == 1){
+                     sessionStorage.removeItem("serveridtoedit");
+                     window.location.href= "ViewServerCred.html";
+                }
                   
             });
-                sessionStorage.removeItem("serveridtoedit");
-              window.location.href = "ViewServerCred.html";
+               
                 }
                 else
                 {
@@ -150,7 +160,11 @@
                 sessionStorage.removeItem("serveridtoedit");
                 window.location.href = "addServerCred.html";
               }
-
+     $scope.refresh = function(){
+             
+           window.location.href = "addServerCred.html";
+            
+              }
 
 });
 

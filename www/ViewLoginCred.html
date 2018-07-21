@@ -34,6 +34,10 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+                                <a href="ViewLoginCred.html" class="btn btn-info pull-right">
+                                <i class=" fa fa-refresh"></i>
+                                <span></span>
+                            </a>
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,13 +52,15 @@
                 </nav>
 
                 
-
+<a style="color: white;" href="addLoginCred.html" class="pull-right"><i class="fa fa-plus"></i> Add New</a>
+<br><br>
 <div style="overflow: scroll;">
-<table class="table" style="color: white;">
+<table class="table ak-animate-zoom" style="color: white;font-size: 15px;">
     <tr>
         <th>Site</th>
         <th>Loginid</th>
         <th>Pass</th>
+        <th>Dated</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -62,8 +68,9 @@
         <td>{{x.Sitename}}</td>
         <td>{{x.Loginid}}</td>
         <td>{{x.Passcode}}</td>
-        <td> <a ng-click="editinfo(x.id)"> <i class="fa fa-pencil-square-o"></i> </a></td>
-        <td> <a ng-click="delete(x.id)"> <i class="fa fa-trash"></i> </a></td>
+        <td>{{x.LastUpdate}}</td>
+        <td> <a ng-click="editinfo(x.Code)"> <i class="fa fa-pencil-square-o"></i> </a></td>
+        <td> <a ng-click="delete(x.Code)"> <i class="fa fa-trash"></i> </a></td>
     </tr>
 </table>
 </div>
@@ -88,6 +95,7 @@
          <!-- Bootstrap Js CDN -->
           <script src="js/angular.min.js"></script>
          <script src="js/bootstrap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
          <!-- jQuery Nicescroll CDN -->
          <script src="js/jquery.nicescroll.min.js"></script>
 <script type="text/javascript" src="js/sc_index.js"></script>
@@ -97,9 +105,9 @@
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
 
-       var q = "select * from tbllogincred order by id desc";
+       var q = "select * from nfu_logincred where IsDelete = 0 and userid ="+localStorage.getItem("Code")+" order by Code desc";
       
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
             {$scope.details = response.data.result; });
         
         $scope.editinfo = function(id){
@@ -110,16 +118,17 @@
 
          $scope.delete = function(id){
           //  alert(id);
-          var q = "delete from tbllogincred where id ="+id;
+          
+          var q = "update nfu_logincred set IsDelete = 1  where Code ="+id;
           
             $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q)
              .then(function (response) { 
                   
                   
             });
-                  var q = "select * from tbllogincred order by id desc";
+                  var q = "select * from nfu_logincred where IsDelete = 0 and userid ="+localStorage.getItem("Code")+"  order by Code desc";
       
-         $http.get(localStorage.getItem("serverpath")+"data.php?Code=read&q="+q).then(function (response) 
+         $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
             {$scope.details = response.data.result; });
         }
 

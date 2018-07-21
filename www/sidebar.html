@@ -1,143 +1,181 @@
   <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-<!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div id="dismiss">
-                    <i class="glyphicon glyphicon-arrow-left"></i>
-                </div>
+  <!-- Sidebar Holder -->
+  <nav id="sidebar">
+    <div id="dismiss">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+    </div>
 
-                <div class="sidebar-header text-center">
-                    <h4>Developed By</h4>
-                    <h3>A K Sharma</h3>
-                </div>
+    <div class="sidebar-header text-center">
+        <h4>Developed By</h4>
+        <h3>A K Sharma</h3>
+    </div>
 
-                <ul class="list-unstyled components" style=" text-align: left;" >
-                    <li> <a href="home.html"> <i class="fa fa-home"></i> Home</a></li>
-                    <li>
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-desktop"></i> Sites</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li><a href="addLoginCred.html">ADD</a></li>
-                            <li><a href="ViewLoginCred.html">VIEW</a></li>
-                        </ul>
-                    </li>
-                      <li>
-                        <a href="#serverSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-database"></i> Server</a>
-                         <ul class="collapse list-unstyled" id="serverSubmenu">
-                            <li><a href="addServerCred.html">ADD</a></li>
-                            <li><a href="ViewServerCred.html">VIEW</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#ftpSubmenu" data-toggle="collapse" aria-expanded="false">  <i class="fa fa-upload"></i> FTP Details</a>
-                         <ul class="collapse list-unstyled" id="ftpSubmenu">
-                            <li><a href="addFtpDetails.html">ADD</a></li>
-                            <li><a href="ViewFtpDetail.html">VIEW</a></li>
-                        </ul>
-                    </li>
-                      <li>
-                        <a href="#notesSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-file-text "></i> Notes</a>
-                         <ul class="collapse list-unstyled" id="notesSubmenu">
-                            <li><a href="addNotes.html">ADD</a></li>
-                            <li><a href="ViewNotes.html">VIEW</a></li>
-                        </ul>
-                    </li>
-                     <li>
-                        <a href="browser.html"> <i class="glyphicon glyphicon-globe"></i> Browser</a>
-                    </li>
-                    <li>
-                       <a href="#" id="gpass" data-toggle="modal" data-target="#myModal"> <i class="fa fa-key" ></i> Generate Password</a>
-                    </li>
-                     <li>
-                       <a href="namesuggest.html"> <i class="glyphicon glyphicon-user" ></i> Name Suggestion</a>
-                    </li>
-                </ul>
+    <ul class="list-unstyled components" style=" text-align: left;" >
+        <li> <a href="home.html"> <i class="fa fa-home"></i> Home</a></li>
+        <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-desktop"></i> Sites</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li><a href="addLoginCred.html">ADD</a></li>
+                <li><a href="ViewLoginCred.html">VIEW</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#serverSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-database"></i> Server</a>
+            <ul class="collapse list-unstyled" id="serverSubmenu">
+                <li><a href="addServerCred.html">ADD</a></li>
+                <li><a href="ViewServerCred.html">VIEW</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#ftpSubmenu" data-toggle="collapse" aria-expanded="false">  <i class="fa fa-upload"></i> FTP Details</a>
+            <ul class="collapse list-unstyled" id="ftpSubmenu">
+                <li><a href="addFtpDetails.html">ADD</a></li>
+                <li><a href="ViewFtpDetail.html">VIEW</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#notesSubmenu" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-file-text "></i> Notes</a>
+            <ul class="collapse list-unstyled" id="notesSubmenu">
+                <li><a href="addNotes.html">ADD</a></li>
+                <li><a href="ViewNotes.html">VIEW</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="browser.html"> <i class="glyphicon glyphicon-globe"></i> Browser</a>
+        </li>
+        <li>
+         <a href="#" id="gpass" data-toggle="modal" data-target="#myModal"> <i class="fa fa-key" ></i> Generate Password</a>
+     </li>
+     <li>
+         <a href="namesuggest.html"> <i class="glyphicon glyphicon-user" ></i> Name Suggestion</a>
+     </li>
+     <li>
+        <a href="#" onclick="logout()"> <i class="fa fa-sign-out" ></i> Log Out</a>
+     </li>
+ </ul>
 
-            </nav>
+</nav>
 
 
-             <!-- The Modal -->
-  <div class="modal fade" id="myModal" style="top:20%;">
+<!-- The Modal -->
+<div class="modal fade" id="myModal" style="top:20%;">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-center">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title" style="color: black;">Generate Password</h4>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-     <span class="alert alert-info" id="generator"><i class="fa fa-refresh"></i></span>
-              <label style="background: #dcd9d9 ;color: black;" class="alert" id="Password"></label>
-     <span class="alert alert-info copy"><i class="fa fa-copy"></i></span>
-     <br>
-     <input type="range" name="" ng-model="txtpasslength" value="8" id="txtpasslength" class="form-control">
-     <label style="color: black;">{{txtpasslength}}</label>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-           <label style="color: gray;" id="lblalert" class="pull-left" ></label>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
       </div>
-    </div>
-  </div>
 
-  <script src="js/clipboard.js"></script>
-               <script type="text/javascript">
-             $(document).ready(function () {
-               
-              
+      <!-- Modal body -->
+      <div class="modal-body">
+       <span class="alert alert-info" id="generator"><i class="fa fa-refresh"></i></span>
+       <label style="background: #dcd9d9 ;color: black;" class="alert" id="Password"></label>
+       <span class="alert alert-info copy"><i class="fa fa-copy"></i></span>
+       <br>
+       <input type="range" name="" ng-model="txtpasslength" value="8" id="txtpasslength" class="form-control">
+       <label style="color: black;">{{txtpasslength}}</label>
+       <br>
 
-                 $("#sidebar").niceScroll({
-                     cursorcolor: '#53619d',
-                     cursorwidth: 4,
-                     cursorborder: 'none'
-                 });
-                $('#generator').on('click', function () {
-                   var length = $("#txtpasslength").val();
+       <div class="btn-group btn-group-toggle" data-toggle="buttons" style="font-size: small;">
+  <label class="btn btn-primary active">
+    <input type="checkbox" id="chkcaps" checked="" autocomplete="off"> Capitals
+  </label>
+  <label class="btn btn-primary">
+    <input type="checkbox" id="chksmalls" autocomplete="off"> Smalls
+  </label>
+  <label class="btn btn-primary">
+    <input type="checkbox" id="chknumbers" autocomplete="off"> Numbers
+  </label>
+   <label class="btn btn-primary">
+    <input type="checkbox" id="chksymbols" autocomplete="off"> Symbols
+  </label>
+</div>
+   </div>
+
+   <!-- Modal footer -->
+   <div class="modal-footer">
+     <label style="color: gray;" id="lblalert" class="pull-left" ></label>
+     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+ </div>
+
+</div>
+</div>
+</div>
+
+<script src="js/clipboard.js"></script>
+<script type="text/javascript">
+   $(document).ready(function () {
+
+
+
+       $("#sidebar").niceScroll({
+           cursorcolor: '#53619d',
+           cursorwidth: 4,
+           cursorborder: 'none'
+       });
+       $('#generator').on('click', function () {
+         var length = $("#txtpasslength").val();
                   //   var randomstring = Math.random().toString(36).slice(- length);
                   var randomstring = makeid(length);
-                $("#Password").text(randomstring);
-                 });
+                  $("#Password").text(randomstring);
+              });
 
-                 $('#dismiss, .overlay').on('click', function () {
-                    $('#sidebar').removeClass('active');
-                    $('.overlay').fadeOut();
-                 });
+       $('#dismiss, .overlay').on('click', function () {
+        $('#sidebar').removeClass('active');
+        $('.overlay').fadeOut();
+    });
 
-                     $('#gpass, .overlay').on('click', function () {
-                    $('#sidebar').removeClass('active');
-                    $('.overlay').fadeOut();
-                 });
+       $('#gpass, .overlay').on('click', function () {
+        $('#sidebar').removeClass('active');
+        $('.overlay').fadeOut();
+    });
 
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').addClass('active');
-                     $('.overlay').fadeIn();
-                     $('.collapse.in').toggleClass('in');
-                     $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-                 });
+       $('#sidebarCollapse').on('click', function () {
+           $('#sidebar').addClass('active');
+           $('.overlay').fadeIn();
+           $('.collapse.in').toggleClass('in');
+           $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+       });
 
-              
-             var randomstring = makeid(8);
-                $("#Password").text(randomstring);
 
-             });
+       var randomstring = makeid(8);
+       $("#Password").text(randomstring);
 
-    
-            function makeid(length) {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!";
+   });
 
-  for (var i = 0; i < length; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-  return text;
+   function makeid(length) {
+      var text = "";
+      var possible = "";
+
+if($('#chkcaps').is(':checked') == true){
+   possible += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 }
-         </script>
+if($('#chksmalls').is(':checked') == true){
+   possible += "abcdefghijklmnopqrstuvwxyz";
+}
+if($('#chknumbers').is(':checked') == true){
+   possible += "0123456789";
+}
+if($('#chksymbols').is(':checked') == true){
+   possible += "@#$!+*-/";
+}
+      for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
 
- <script>
+    return text;
+}
+
+function logout(){
+ localStorage.removeItem("Code");
+ localStorage.removeItem("Name");
+ localStorage.removeItem("Email");
+ window.location.href= "login/login.html";
+}
+</script>
+
+<script>
     var clipboard = new ClipboardJS('.copy', {
         text: function() {
 
@@ -155,5 +193,5 @@
     clipboard.on('error', function(e) {
         console.log(e);
     });
-    </script>
+</script>
 
