@@ -57,38 +57,38 @@
     </div>
 </div>
              <div id="detaileddata" style="overflow: scroll;color: white;">
-                 <table ng-repeat="val in data" class="table table-responsive">
+                 <table class="table table-responsive" ng-repeat="data in records">
     <tr>
-        <td colspan="3" class="alert alert-info">{{val.name}} &nbsp; {{val.surname}}</td>
+        <td colspan="3" class="alert alert-info">{{data.name}} &nbsp; {{val.surname}}</td>
     </tr>
        <tr>
-        <td rowspan="7"><img src="{{val.photo}}" width="80px"></td>
+        <td rowspan="7"><img src="{{data.photo}}" width="80px"></td>
         <td style="font-size: smaller;">Age</td>
-        <td style="font-size: smaller;">{{val.age}}</td>
+        <td style="font-size: smaller;">{{data.age}}</td>
     </tr>
     <tr>
         <td style="font-size: smaller;">Gender</td>
-        <td style="font-size: smaller;">{{val.gender}}</td>
+        <td style="font-size: smaller;">{{data.gender}}</td>
     </tr>
        <tr>
         <td style="font-size: smaller;">Region</td>
-        <td style="font-size: smaller;">{{val.region}}</td>
+        <td style="font-size: smaller;">{{data.region}}</td>
     </tr>
        <tr>
         <td style="font-size: smaller;">Phone</td>
-        <td style="font-size: smaller;">{{val.phone}}</td>
+        <td style="font-size: smaller;">{{data.phone}}</td>
     </tr>
        <tr>
         <td style="font-size: smaller;">Birthday</td>
-        <td style="font-size: smaller;">{{val.birthday.dmy}}</td>
+        <td style="font-size: smaller;">{{data.birthday.dmy}}</td>
     </tr>
          <tr>
         <td style="font-size: smaller;">Email</td>
-        <td style="font-size: smaller;">{{val.email}}</td>
+        <td style="font-size: smaller;">{{data.email}}</td>
     </tr>
          <tr>
         <td style="font-size: smaller;">Password</td>
-        <td style="font-size: smaller;">{{val.password}}</td>
+        <td style="font-size: smaller;">{{data.password}}</td>
     </tr>
 </table>
 
@@ -125,13 +125,13 @@
   $scope.txtpasslength = 10;
     $scope.Fetch = function(){
         $scope.alert = "Wait ...";
-        var url = "https://uinames.com/api/?ext=ext";
+        var url = "https://uinames.com/api/?amount=25&ext=ext";
         if(sessionStorage.getItem("region")){ url += "&region="+sessionStorage.getItem("region");  }
   if(sessionStorage.getItem("gender")){ url += "&gender="+sessionStorage.getItem("gender");  }
    if(sessionStorage.getItem("amount")){ url += "&amount="+sessionStorage.getItem("amount");  }
        
         $http.get(url).then(function(response) {
-        $scope.data = response.data;
+        $scope.records = response.data;
          $scope.alert = "";
         });
        
