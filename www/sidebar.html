@@ -46,6 +46,9 @@
         <li>
          <a href="#" id="gpass" data-toggle="modal" data-target="#myModal"> <i class="fa fa-key" ></i> Generate Password</a>
      </li>
+      <li>
+         <a href="#" id="gpass2" data-toggle="modal" data-target="#myModal2"> <i class="fa fa-key" ></i> Generate Meaningful Password</a>
+     </li>
      <li>
          <a href="namesuggest.html"> <i class="glyphicon glyphicon-user" ></i> Name Suggestion</a>
      </li>
@@ -106,6 +109,39 @@
 </div>
 </div>
 
+
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal2" style="top:20%;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="color: black;">Generate Meaningful Password</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <span class="alert alert-info" onclick="MeanPass()"><i class="fa fa-refresh"></i></span>
+       <label style="background: #dcd9d9 ;color: black;" class="alert" id="Password2"></label>
+       <span class="alert alert-info copy2"><i class="fa fa-copy"></i></span>
+
+   </div>
+
+   <!-- Modal footer -->
+   <div class="modal-footer">
+     <label style="color: gray;" id="lblalert2" class="pull-left" ></label>
+     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+ </div>
+
+</div>
+</div>
+</div>
+
+
+
 <script src="js/clipboard.js"></script>
 <script type="text/javascript">
    $(document).ready(function () {
@@ -147,7 +183,15 @@
 
    });
 
+function MeanPass()
+{
+ $.get( "https://www.dinopass.com/password/strong", function( data ) {
+  $( "#Password2" ).html( data );
+ 
+}); 
+}
 
+ MeanPass();
    function makeid(length) {
       var text = "";
       var possible = "";
@@ -189,6 +233,15 @@ function logout(){
         }
     });
 
+  var clipboard = new ClipboardJS('.copy2', {
+        text: function() {
+
+            var data =  $("#Password2").text();
+            $("#lblalert2").text("Copied :"+data);
+            return data;
+
+        }
+    });
     clipboard.on('success', function(e) {
         console.log(e);
     });
