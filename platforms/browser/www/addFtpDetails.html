@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Server Credentials</title>
+        <title>FTP Credentials</title>
 <link rel="stylesheet" href="css/loader.css">
          <!-- Bootstrap CSS CDN -->
             <link rel="stylesheet" href="css/bootstrap.css">
@@ -24,7 +24,7 @@
                 <div ng-include="'sidebar.html'"></div>
 
             <!-- Page Content Holder -->
-            <div id="content" style="background-color: #596778;">
+            <div id="content" style="background-color: #596778;padding: 0px;">
 
                 <nav class="navbar navbar-default">
                     <div class="container-fluid" style=" text-align: left;">
@@ -52,8 +52,8 @@
                 </nav>
 
                 
-
-<span style="color: white;">Mode : {{mode}}</span>
+<div style="padding: 10px;">
+    <span style="color: white;">Mode : {{mode}}</span>
 <a style="color: white;" href="ViewFtpDetail.html" class="pull-right"><i class="fa fa-eye"></i> View Data</a>
 <br><br>
 <div class="form">
@@ -76,6 +76,8 @@
     <div class="form-group">
       <label style="color: white;"> {{error}} </label>
     </div>
+</div>
+
 </div>
 
 

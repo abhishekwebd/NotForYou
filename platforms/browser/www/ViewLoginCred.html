@@ -24,7 +24,7 @@
                 <div ng-include="'sidebar.html'"></div>
 
             <!-- Page Content Holder -->
-            <div id="content" style="background-color: #596778;">
+            <div id="content" style="background-color: #596778;padding: 0px;">
 
                 <nav class="navbar navbar-default">
                     <div class="container-fluid" style=" text-align: left;">
@@ -34,7 +34,7 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
-                                <a href="ViewLoginCred.html" class="btn btn-info pull-right">
+                                <a ng-click="GetFromDb()" class="btn btn-info pull-right">
                                 <i class=" fa fa-refresh"></i>
                                 <span></span>
                             </a>
@@ -105,11 +105,21 @@
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
 
-       var q = "select * from nfu_logincred where IsDelete = 0 and userid ="+localStorage.getItem("Code")+" order by Code desc";
+     
+     var pageData = JSON.parse(localStorage.getItem('LoginCredData')); 
+       $scope.details = pageData;  
+
+        $scope.GetFromDb = function(){
+             var q = "select * from nfu_logincred where IsDelete = 0 and userid ="+localStorage.getItem("Code")+" order by Code desc";
       
          $http.get(localStorage.getItem("serverpath")+"data.php?Code=execute&q="+q).then(function (response) 
-            {$scope.details = response.data.result; });
-        
+            {
+                $scope.details = response.data.result;
+                localStorage.setItem('LoginCredData', JSON.stringify(response.data.result));
+             });
+
+        }
+
         $scope.editinfo = function(id){
           //  alert(id);
             sessionStorage.setItem("siteidtoedit",id);
