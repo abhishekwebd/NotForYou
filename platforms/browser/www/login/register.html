@@ -43,14 +43,20 @@
 						<input class="input100" type="text" name="email" ng-model="Email" placeholder="username@email.com">
 						<span class="focus-input100"></span>
 					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Phasphrase to protect your data">
+						<input class="input100" name="passphrase" ng-model="passphrase" placeholder="Passphrase">
+
+						<span class="focus-input100"></span>
+					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Please enter Password">
-						<input class="input100" type="password" name="pass" ng-model="Password" placeholder="Password">
+						<input class="input100" ng-init="ankh=-1" type="{{ankh===-1 ? 'password' : 'text'}}" name="pass" ng-model="Password" placeholder="Password">
 
 						<span class="focus-input100"></span>
 					</div>
 
 						<div class="text-right p-t-10 p-b-20">
-						<span ng-bind="Password"></span>
+						<!-- <span ng-bind="Password"></span> -->
+						<i ng-click="ankh =  ankh * -1" class="fa fa-eye" ng-style="ankh ===-1  ? {color:'gray'}: {color:'blue'}"></i>
 					</div>
 
 					<div class="container-login100-form-btn">
