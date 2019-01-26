@@ -24,6 +24,15 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+<style>
+	.lightblue {
+		background: linear-gradient(to right, rgb(102, 125, 182), rgb(0, 130, 200), rgb(0, 130, 200), rgb(102, 125, 182));
+	}
+	.darkblue {
+		background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	}
+	
+</style>
 <script type="text/javascript">
 if(localStorage.getItem("Code") != null ){
 
@@ -37,7 +46,7 @@ if(localStorage.getItem("Code") != null ){
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178">
-					<span class="login100-form-title">
+					<span class="login100-form-title darkblue" >
 						Sign In
 					</span>
 
@@ -56,13 +65,13 @@ if(localStorage.getItem("Code") != null ){
 							Forgot
 						</span>
 
-						<a href="#" class="txt2">
+						<a href="#" class="txt2" style="color:#3f7ebc;">
 							Username / Password?
 						</a>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" ng-click="Login()">
+						<button class="login100-form-btn lightblue" ng-click="Login()" >
 							Sign in
 						</button>
 						{{error}}
@@ -73,7 +82,7 @@ if(localStorage.getItem("Code") != null ){
 							Don’t have an account?
 						</span>
 
-						<a href="register.html" class="txt3">
+						<a href="register.html" class="txt3" style="color:#3f7ebc;">
 							Sign up now
 						</a>
 					</div>

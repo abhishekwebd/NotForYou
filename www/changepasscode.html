@@ -54,34 +54,34 @@
         <tr>
             <td>
                  <div class="form-group">
-                  <input type="password" ng-model="txtoldpassword" id="txtoldpassword" class="form-control" placeholder="Old Password" name="">
+                  <input ng-init="oldpass=-1" type="{{oldpass===-1 ? 'password' : 'text'}}" ng-model="txtoldpassword" id="txtoldpassword" class="form-control" placeholder="Old Password" name="">
                   </div>
             </td>
             <td>
-                <span style="color: white;" ng-click="seeoldpass()"> <i class="fa fa-2x fa-eye"></i></span>
+                <span ng-click="oldpass =  oldpass * -1"  ng-style="oldpass ===-1  ? {color:'gray'}: {color:'white'}" > <i class="fa fa-2x fa-eye"></i></span>
             </td>
         </tr>
   
    <tr>
        <td>
             <div class="form-group">
-        <input type="password" name="" ng-model="txtnewpass" id="txtnewpass" placeholder="New Password" class="form-control">
+        <input ng-init="newpass=-1" type="{{newpass===-1 ? 'password' : 'text'}}" name="" ng-model="txtnewpass" id="txtnewpass" placeholder="New Password" class="form-control">
     </div>
        </td>
        <td>
-         <span style="color: white;" ng-click="seenewpass()"> <i class="fa fa-2x fa-eye"></i></span>
+         <span ng-click="newpass =  newpass * -1"  ng-style="newpass ===-1  ? {color:'gray'}: {color:'white'}"> <i class="fa fa-2x fa-eye"></i></span>
        </td>
    </tr>
    
    <tr>
        <td>
               <div class="form-group">
-        <input type="password" name="" ng-model="txtcnewpass" id="txtcnewpass" placeholder="Confirm Password" class="form-control">
+        <input ng-init="cnewpass=-1" type="{{cnewpass===-1 ? 'password' : 'text'}}" name="" ng-model="txtcnewpass" id="txtcnewpass" placeholder="Confirm Password" class="form-control">
       
     </div>
        </td>
        <td>
-           <span style="color: white;" ng-click="seecnewpass()"> <i class="fa fa-2x fa-eye"></i></span>
+           <span ng-click="cnewpass =  cnewpass * -1"  ng-style="cnewpass ===-1  ? {color:'gray'}: {color:'white'}"> <i class="fa fa-2x fa-eye"></i></span>
        </td>
    </tr>
   

@@ -34,6 +34,11 @@
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span></span>
                             </button>
+                            
+                               <button type="button" onclick="app.exitFromApp()" class="btn btn-info navbar-btn pull-right">
+                                <i class="glyphicon glyphicon-log-out"></i>
+                                <span></span>
+                            </button>
                         </div>
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,15 +53,6 @@
                 </nav>
 
                 
-
-
-
-
-
-
-
-
-
 
 <div ng-include="'pop.html'"></div>
 
@@ -78,12 +74,13 @@
 <script type="text/javascript" src="js/sc_index.js"></script>
    <script src="js/index.js"></script>
 
+
 <script>
     var app = angular.module('myApp', []);
     app.controller('HomeCtrl', function ($scope, $http) {
-
-});
-
+ 
+   });
+    
 </script>
 
 

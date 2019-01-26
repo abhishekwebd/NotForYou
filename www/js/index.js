@@ -45,5 +45,10 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+     exitFromApp: function()
+    {
+       console.log('hit');
+       navigator.app.exitApp();
     }
 };
